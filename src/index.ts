@@ -29,13 +29,15 @@ class Task {
   }
 }
 class TaskManager {
-  private tasks: ITask[] = [];
+  data: string | null = localStorage.getItem("tasks");
+  private tasks: ITask[] = this.data ? JSON.parse(this.data) : [];
 
   // Methods
 
   // add task
   add(task: ITask): void {
     this.tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
   // mark as completed
   markCompleted(id: number): void {
@@ -50,6 +52,7 @@ class TaskManager {
       (task) => task.id === id
     );
     this.tasks.splice(targetTaskIndex, 1);
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
   // get all tasks
   getTasks(): ITask[] {
@@ -116,3 +119,10 @@ todoBtn?.addEventListener("click", addTodoFunc);
 document.addEventListener("keydown", (e): void => {
   if (e.key === "Enter") addTodoFunc();
 });
+(function () {
+  const data: string | null = localStorage.getItem("tasks");
+  if (data) {
+    const tasks = JSON.parse(data);
+    createTasks(tasks);
+  }
+})();

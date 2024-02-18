@@ -21,12 +21,14 @@ class Task {
 Task.id = 0;
 class TaskManager {
     constructor() {
-        this.tasks = [];
+        this.data = localStorage.getItem("tasks");
+        this.tasks = this.data ? JSON.parse(this.data) : [];
     }
     // Methods
     // add task
     add(task) {
         this.tasks.push(task);
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
     }
     // mark as completed
     markCompleted(id) {
@@ -37,6 +39,7 @@ class TaskManager {
     removeTask(id) {
         const targetTaskIndex = this.tasks.findIndex((task) => task.id === id);
         this.tasks.splice(targetTaskIndex, 1);
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
     }
     // get all tasks
     getTasks() {
@@ -91,3 +94,10 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Enter")
         addTodoFunc();
 });
+(function () {
+    const data = localStorage.getItem("tasks");
+    if (data) {
+        const tasks = JSON.parse(data);
+        createTasks(tasks);
+    }
+})();
