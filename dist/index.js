@@ -2,11 +2,11 @@
 // task Interface
 class Task {
     //   Constructor
-    constructor(description, completed) {
+    constructor(description) {
         this.taskId = Task.id;
         Task.id++;
         this.description = description;
-        this.completed = completed;
+        this.completed = false;
     }
     //   Methods
     taskData() {
@@ -43,14 +43,44 @@ class TaskManager {
         return this.tasks;
     }
 }
-const task1 = new Task("one ", false);
-const task2 = new Task("two ", false);
-const task3 = new Task("three ", false);
-const task4 = new Task("three ", false);
 const taskManager = new TaskManager();
-taskManager.add(task1.taskData());
-taskManager.add(task2.taskData());
-taskManager.add(task3.taskData());
-taskManager.add(task4.taskData());
-taskManager.removeTask(3);
-console.log(taskManager.getTasks());
+const todos = document.querySelector(".todos");
+const todoBtn = document.querySelector(".todo-btn");
+// functions
+function resetTasks(tasks) {
+    // Reset Todos
+    if (todos)
+        todos.innerHTML = "";
+    tasks.forEach((task) => {
+        todos === null || todos === void 0 ? void 0 : todos.insertAdjacentHTML("beforeend", `<div class="todo ${task.completed ? "active" : ""}">
+      <div class="todo-desc">${task.description}</div>
+      <div class="todo-btns">
+        <button class="todo-btn active" onclick="taskManager.markCompleted(${task.id});resetTasks(taskManager.getTasks());">completed</button>
+        <button class="todo-btn delete" onclick="taskManager.removeTask(${task.id}); resetTasks(taskManager.getTasks());">Delete</button>
+      </div>
+    </div>`);
+    });
+}
+function createTasks(tasks) {
+    // Reset Todos
+    if (todos)
+        todos.innerHTML = "";
+    tasks.forEach((task) => {
+        todos === null || todos === void 0 ? void 0 : todos.insertAdjacentHTML("beforeend", `<div class="todo ${task.completed ? "active" : ""}">
+    <div class="todo-desc">${task.description}</div>
+    <div class="todo-btns">
+      <button class="todo-btn active" onclick="taskManager.markCompleted(${task.id});resetTasks(taskManager.getTasks());">completed</button>
+      <button class="todo-btn delete"  onclick="taskManager.removeTask(${task.id}); resetTasks(taskManager.getTasks());">Delete</button>
+    </div>
+  </div>`);
+    });
+}
+todoBtn === null || todoBtn === void 0 ? void 0 : todoBtn.addEventListener("click", () => {
+    let todoTextInput = document.querySelector(".todo-text");
+    const desc = (todoTextInput === null || todoTextInput === void 0 ? void 0 : todoTextInput.value) || "";
+    const task = new Task(desc);
+    taskManager.add(task.taskData());
+    if (todoTextInput)
+        todoTextInput.value = "";
+    createTasks(taskManager.getTasks());
+});
