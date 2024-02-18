@@ -104,8 +104,10 @@ todoBtn?.addEventListener("click", (): void => {
   let todoTextInput: HTMLInputElement | null =
     document.querySelector(".todo-text");
   const desc: string = todoTextInput?.value || "";
-  const task = new Task(desc);
-  taskManager.add(task.taskData());
-  if (todoTextInput) todoTextInput.value = "";
-  createTasks(taskManager.getTasks());
+  if (desc !== "") {
+    const task = new Task(desc);
+    taskManager.add(task.taskData());
+    if (todoTextInput) todoTextInput.value = "";
+    createTasks(taskManager.getTasks());
+  }
 });

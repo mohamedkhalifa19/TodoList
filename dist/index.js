@@ -78,9 +78,11 @@ function createTasks(tasks) {
 todoBtn === null || todoBtn === void 0 ? void 0 : todoBtn.addEventListener("click", () => {
     let todoTextInput = document.querySelector(".todo-text");
     const desc = (todoTextInput === null || todoTextInput === void 0 ? void 0 : todoTextInput.value) || "";
-    const task = new Task(desc);
-    taskManager.add(task.taskData());
-    if (todoTextInput)
-        todoTextInput.value = "";
-    createTasks(taskManager.getTasks());
+    if (desc !== "") {
+        const task = new Task(desc);
+        taskManager.add(task.taskData());
+        if (todoTextInput)
+            todoTextInput.value = "";
+        createTasks(taskManager.getTasks());
+    }
 });
