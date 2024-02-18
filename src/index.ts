@@ -45,6 +45,7 @@ class TaskManager {
       (task) => task.id === id
     );
     this.tasks[targetTaskIndex].completed = true;
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
   //   Remove Task
   removeTask(id: number): void {
