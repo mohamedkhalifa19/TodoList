@@ -74,7 +74,7 @@ body {
 
 .todo-btn.delete {
   background: #ff0000;
-  margin: 0 12px;
+  margin: 0 13px;
 }
 .todo-btn.active {
   background: #4b4545;
