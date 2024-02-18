@@ -100,7 +100,8 @@ function createTasks(tasks: ITask[]): void {
     );
   });
 }
-todoBtn?.addEventListener("click", (): void => {
+
+const addTodoFunc = (): void => {
   let todoTextInput: HTMLInputElement | null =
     document.querySelector(".todo-text");
   const desc: string = todoTextInput?.value || "";
@@ -110,4 +111,8 @@ todoBtn?.addEventListener("click", (): void => {
     if (todoTextInput) todoTextInput.value = "";
     createTasks(taskManager.getTasks());
   }
+};
+todoBtn?.addEventListener("click", addTodoFunc);
+document.addEventListener("keydown", (e): void => {
+  if (e.key === "Enter") addTodoFunc();
 });

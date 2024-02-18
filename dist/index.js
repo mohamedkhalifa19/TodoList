@@ -75,7 +75,7 @@ function createTasks(tasks) {
   </div>`);
     });
 }
-todoBtn === null || todoBtn === void 0 ? void 0 : todoBtn.addEventListener("click", () => {
+const addTodoFunc = () => {
     let todoTextInput = document.querySelector(".todo-text");
     const desc = (todoTextInput === null || todoTextInput === void 0 ? void 0 : todoTextInput.value) || "";
     if (desc !== "") {
@@ -85,4 +85,9 @@ todoBtn === null || todoBtn === void 0 ? void 0 : todoBtn.addEventListener("clic
             todoTextInput.value = "";
         createTasks(taskManager.getTasks());
     }
+};
+todoBtn === null || todoBtn === void 0 ? void 0 : todoBtn.addEventListener("click", addTodoFunc);
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter")
+        addTodoFunc();
 });
