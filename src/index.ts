@@ -109,7 +109,7 @@ const addTodoFunc = (): void => {
   let todoTextInput: HTMLInputElement | null =
     document.querySelector(".todo-text");
   const desc: string = todoTextInput?.value || "";
-  if (desc !== "") {
+  if (desc.trim() !== "") {
     const task = new Task(desc);
     taskManager.add(task.taskData());
     if (todoTextInput) todoTextInput.value = "";

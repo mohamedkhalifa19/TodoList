@@ -26,6 +26,9 @@ body {
     border: 1px solid;
     width: 50%;
     outline: none;
+    &:focus {
+      border: 2px solid green;
+    }
   }
   .todo-btn {
     display: block;

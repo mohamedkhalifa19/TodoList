@@ -82,7 +82,7 @@ function createTasks(tasks) {
 const addTodoFunc = () => {
     let todoTextInput = document.querySelector(".todo-text");
     const desc = (todoTextInput === null || todoTextInput === void 0 ? void 0 : todoTextInput.value) || "";
-    if (desc !== "") {
+    if (desc.trim() !== "") {
         const task = new Task(desc);
         taskManager.add(task.taskData());
         if (todoTextInput)
